@@ -1,0 +1,2 @@
+# Check RAID status every 10 minutes if enable
+*/10 * * * *  root grep -q "ENABLE=1" /etc/megactl/megactl-cron.conf && /usr/share/megactl/megactl-cron 

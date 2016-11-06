@@ -1,0 +1,47 @@
+MegaCTL for Mandriva
+--------------------
+
+Mandriva provides some integrated tools to periodically check the status of
+all RAID arrays controlled by the RAID controller cards using LSI MegaRAID.
+
+There are 2 tools :
+ * megactl for SCSI disks
+ * megasasctl for SAS disks
+
+There are no simple way to define which tool should be used. Therefore, you
+have to check yourself. To do that just start each command and check the
+output.
+
+To do that :
+ * start a terminal,
+ * you must be root (so su - if necessary),
+ * type :
+ megactl
+ * if you get an error, you do not have a MegaRaid SCSI card, try the other
+   command,
+ * type :
+ megasasctl
+ * if you still get an error, you do not have any MegaRAID based card OR you
+   have a MegaRAID card which is not supported yet by the open source tools.
+
+Now that you now which MegaCTL command is good for you, you can modify the
+good file.
+
+If the megactl command was the one working for you, then edit the
+/etc/megactl/megactl-cron.conf file and replace ENABLE=0 by ENABLE=1 in it.
+
+If the megasasctl command was the one working for you, then edit the
+/etc/megactl/megasasctl-cron.conf file and replace ENABLE=0 by ENABLE=1 in it.
+
+Now cron will run a script each 10 minutes. On start the status of the RAID
+is checked. If the RAID array is broken, then a log is written in the syslog
+and a mail is sent to root. As long as the status of the RAID array is bad, a
+log is written every 10 minutes in the syslog and a mail is sent every
+2 hours to root.
+
+As long as the status of the RAID array is bad, this last procedure is
+repeated. A log and a mail are also provided when the status of the array has
+changed. The maximum latency of messages and log on status change is
+10 minutes.
+
+Adam Cécile <acecile@mandriva.com>
