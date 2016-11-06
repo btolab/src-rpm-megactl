@@ -1,0 +1,16 @@
+diff --git a/src/Makefile b/src/Makefile
+index 6bd185c..2a55eb3 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -2,10 +2,9 @@
+ SRCS=		megactl.c adapter.c megaioctl.c megatrace.c callinfo.c dumpbytes.c logpage.c ntrim.c
+ INC=		-I./schily -Iincludes-hack
+ HDRS=		mega.h adapter.h megaioctl.h callinfo.h logpage.h dumpbytes.h
+-ARCH=		-m32
+ CFLAGS=		-g -Wall $(INC) $(ARCH)
+ LDFLAGS=	-g $(ARCH)
+-PROGRAMS=	megactl megasasctl megatrace
++PROGRAMS=	megactl megasasctl
+ 
+ all:		$(PROGRAMS)
+ 

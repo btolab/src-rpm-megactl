@@ -1,7 +1,7 @@
 Summary:	LSI megaraid adapters status tracker
 Name:		megactl
 Version:	0.4.1
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	GPL
 Group:		Applications/System
 URL:		http://sourceforge.net/projects/megactl
@@ -21,6 +21,7 @@ Source12:	megasasctl.8
 Source13:	megatrace.8
 Source14:	README.Mandriva
 Patch0:		megactl-0.4.1.patch
+Patch1:		megactl-x86_64.patch
 Requires:	mailx
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -33,6 +34,7 @@ attached storage devices.
 
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 cp %{SOURCE1} .
 cp %{SOURCE2} .
@@ -64,7 +66,6 @@ install -d %{buildroot}%{_mandir}/man8
 
 install -m0755 megactl.sh %{buildroot}%{_sbindir}/megactl
 install -m0755 megasasctl.sh %{buildroot}%{_sbindir}/megasasctl
-install -m0755 megatrace.sh %{buildroot}%{_sbindir}/megatrace
 install -m0644 create-devices-nodes %{buildroot}%{_datadir}/megactl/
 install -m0755 megactl-cron %{buildroot}%{_datadir}/megactl/megactl-cron
 install -m0755 megasasctl-cron %{buildroot}%{_datadir}/megactl/megasasctl-cron
@@ -74,10 +75,8 @@ install -m0644 megactl-cron.conf %{buildroot}%{_sysconfdir}/megactl/megactl-cron
 install -m0644 megasasctl-cron.conf %{buildroot}%{_sysconfdir}/megactl/megasasctl-cron.conf
 install -m0755 src/megactl %{buildroot}%{_sbindir}/megactl.real
 install -m0755 src/megasasctl %{buildroot}%{_sbindir}/megasasctl.real
-install -m0755 src/megatrace %{buildroot}%{_sbindir}/megatrace.real
 install -m0644 megactl.8 %{buildroot}%{_mandir}/man8/
 install -m0644 megasasctl.8 %{buildroot}%{_mandir}/man8/
-install -m0644 megatrace.8 %{buildroot}%{_mandir}/man8/
 
 %clean
 rm -rf %{buildroot}
@@ -99,6 +98,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Nov 06 2016 h0tw1r3 <h0tw1r3@noreply.github.com>
+- support 64-bit, remove megatrace (32 bit only)
+
 * Fri Dec 10 2010 Oden Eriksson <oeriksson@mandriva.com> 0.4.1-9mdv2011.0
 + Revision: 620317
 - the mass rebuild of 2010.0 packages
