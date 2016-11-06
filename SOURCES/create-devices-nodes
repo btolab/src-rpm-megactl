@@ -21,12 +21,15 @@ create_node() {
 }
 
 create_node_sas() {
-    grep -q 'megaraid_sas_ioctl$' /proc/devices && MEGARAIDSAS="ok"
-    if [ ! -z ${MEGARAIDSAS} ]; then
-        MAJOR=`grep 'megaraid_sas_ioctl$' /proc/devices | head -n 1 | awk '{ print $1 }'`
-        test -e /dev/megaraid_sas_ioctl_node || mknod /dev/megaraid_sas_ioctl_node c $MAJOR 0
-        return 0
+    NODE=/dev/megaraid_sas_ioctl_node
+    if [ ! -e ${NODE} ]; then
+        grep -q 'megaraid_sas_ioctl$' /proc/devices && MEGARAIDSAS="ok"
+        if [ ! -z ${MEGARAIDSAS} ]; then
+            MAJOR=`grep 'megaraid_sas_ioctl$' /proc/devices | head -n 1 | awk '{ print $1 }'`
+            mknod /dev/megaraid_sas_ioctl_node c $MAJOR 0
+        fi
+        return $?
     else
-        return 1
+        return 0
     fi
 }
