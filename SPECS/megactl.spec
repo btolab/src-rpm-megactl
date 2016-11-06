@@ -1,9 +1,9 @@
 Summary:	LSI megaraid adapters status tracker
 Name:		megactl
 Version:	0.4.1
-Release:	%mkrel 9
+Release:	9%{?dist}
 License:	GPL
-Group:		System/Kernel and hardware
+Group:		Applications/System
 URL:		http://sourceforge.net/projects/megactl
 Source0:	http://downloads.sourceforge.net/megactl/%{name}-%{version}.tar.gz
 Source1:	megactl.sh
@@ -21,7 +21,7 @@ Source12:	megasasctl.8
 Source13:	megatrace.8
 Source14:	README.Mandriva
 Patch0:		megactl-0.4.1.patch
-Requires:	nail
+Requires:	mailx
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -51,7 +51,7 @@ cp %{SOURCE14} .
 
 %build
 cd src
-%make
+make
 
 %install
 rm -rf %{buildroot}
@@ -96,3 +96,38 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_datadir}/megactl/megactl-cron
 %attr(0755,root,root) %{_datadir}/megactl/megasasctl-cron
 %attr(0644,root,root) %{_mandir}/man8/*
+
+
+%changelog
+* Fri Dec 10 2010 Oden Eriksson <oeriksson@mandriva.com> 0.4.1-9mdv2011.0
++ Revision: 620317
+- the mass rebuild of 2010.0 packages
+
+* Fri Sep 04 2009 Thierry Vignaud <tv@mandriva.org> 0.4.1-8mdv2010.0
++ Revision: 430014
+- rebuild
+
+* Tue Sep 02 2008 Oden Eriksson <oeriksson@mandriva.com> 0.4.1-7mdv2009.0
++ Revision: 279086
+- fix deps (it needs /bin/mail)
+
+* Wed Aug 27 2008 Oden Eriksson <oeriksson@mandriva.com> 0.4.1-6mdv2009.0
++ Revision: 276618
+- added a patch from gentoo to make it build
+- added lots of changes by acecile@mandriva.com
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+    - rebuild
+
+* Fri Feb 01 2008 Guillaume Rousse <guillomovitch@mandriva.org> 0.4.1-2mdv2008.1
++ Revision: 161130
+- install under %%{_sbindir}, not %%{_bindir}
+
+* Thu Jan 31 2008 Guillaume Rousse <guillomovitch@mandriva.org> 0.4.1-1mdv2008.1
++ Revision: 160750
+- import megactl
+
+
+* Thu Jan 31 2008 Guillaume Rousse <guillomovitch@mandriva.org> 0.4.1-1mdv2008.1
+- first mdv release  
