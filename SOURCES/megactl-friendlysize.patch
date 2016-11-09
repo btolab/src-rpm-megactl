@@ -1,0 +1,22 @@
+diff --git a/src/megactl.c b/src/megactl.c
+index 6976580..b0caceb 100644
+--- a/src/megactl.c
++++ b/src/megactl.c
+@@ -204,10 +204,15 @@ static char *friendlySize (uint64_t b, char *unit)
+     static char		*suffix[] = { "", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi", "Yi", };
+     int			k;
+     static char		bytes[128];
++    double		db = b;
+ 
+-    for (k = 0; (b >= 1024) && (k < sizeof (suffix) / sizeof (suffix[0]) - 1); ++k, b /= 1024)
++    for (k = 0; (db >= 1024) && (k < sizeof (suffix) / sizeof (suffix[0]) - 1); ++k, db /= 1024)
+ 	;
+-    snprintf (bytes, sizeof bytes, "%3llu%s%s", b, suffix[k], unit);
++    if (db > 10) {
++    	snprintf (bytes, sizeof bytes, "%3f%s%s", db, suffix[k], unit);
++    } else {
++    	snprintf (bytes, sizeof bytes, "%1.2f%s%s", db, suffix[k], unit);
++    }
+     return bytes;
+ }
+ 

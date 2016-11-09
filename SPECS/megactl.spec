@@ -1,7 +1,7 @@
 Summary:	LSI megaraid adapters status tracker
 Name:		megactl
 Version:	0.4.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	GPL
 Group:		Applications/System
 URL:		http://sourceforge.net/projects/megactl
@@ -22,6 +22,7 @@ Source13:	megatrace.8
 Source14:	README.Mandriva
 Patch0:		megactl-0.4.1.patch
 Patch1:		megactl-x86_64.patch
+Patch2:		megactl-friendlysize.patch
 Requires:	mailx
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -35,6 +36,7 @@ attached storage devices.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 cp %{SOURCE1} .
 cp %{SOURCE2} .
@@ -98,6 +100,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Nov 08 2016 h0tw1r3 <h0tw1r3@noreply.github.com>
+- improve size display
+
 * Sun Nov 06 2016 h0tw1r3 <h0tw1r3@noreply.github.com>
 - support 64-bit, remove megatrace (32 bit only)
 
